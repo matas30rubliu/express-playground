@@ -4,6 +4,8 @@ const hbs = require('hbs');
 const os = require('os');
 const fs = require('fs');
 
+const portForHeroku = process.env.PORT || 3000;
+
 // API reference @ https://expressjs.com/
 var app = express();
 
@@ -66,6 +68,6 @@ app.get('/matas', (req, res) => {
   age: 23});
 });
 
-app.listen(3000, () => {
-  console.log('Server started on port 3000');
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`);
 });
