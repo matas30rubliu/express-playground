@@ -68,6 +68,6 @@ app.get('/matas', (req, res) => {
   age: 23});
 });
 
-app.listen(port, () => {
-  console.log(`Server started on port ${port}`);
+app.listen(portForHeroku, () => {
+  console.log(`Server started on port ${portForHeroku}`);
 });
