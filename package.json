@@ -5,12 +5,18 @@
   "main": "express.js",
   "dependencies": {
     "express": "^4.15.4",
-    "hbs": "^4.0.1"
+    "hbs": "^4.0.1",
+    "socket.io": "^2.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^3.5.0",
+    "nodemon": "^1.11.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node express.js"
+    "start": "node server/pavezu.js",
+    "test": "mocha server/**/*.test.js",
+    "test-watch": "nodemon --exec 'npm test'"
   },
   "author": "",
   "license": "ISC"
