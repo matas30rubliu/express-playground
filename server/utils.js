@@ -1,8 +1,11 @@
+// https://momentjs.com/docs/#/displaying/
+var moment = require('moment');
+
 var constructMessage = (from, message) => {
   var constructedMessage = {
     from,
     message,
-    createdAt: new Date().getTime()
+    createdAt: moment().format('HH:mm:ss')
   };
   return constructedMessage;
 };

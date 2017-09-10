@@ -13,6 +13,5 @@ describe('constructMessage', () => {
       message: messageTest
     });
 
-    expect(generatedMessage.createdAt).toBeA('number');
   });
 });

@@ -2,7 +2,10 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
+const passport = require('passport');
+const OauthStrategy = require('passport-google-oauth20').Strategy;
 
+const keys = require('../config/keys.js');
 const utils = require('./utils.js');
 
 const portForHeroku = process.env.PORT || 3000;
@@ -19,6 +22,8 @@ var io = socketIO(server);
 // Check .../socket.io/socket.io.js - it is library which contains code needed for client to connect to server and transfer data.
 
 app.use(express.static(publicPath));
+app.use(passport.initialize());
+
 // Registering listener for server. 'connection' is built-in event
 io.on('connection', (socket) => {
   console.log('User with socket id %s connected to server', socket.id);
@@ -39,6 +44,43 @@ io.on('connection', (socket) => {
     console.log('User with socket id %s disconnected from server', socket.id);
   });
 });
+
+passport.serializeUser((user, done) => {
+  console.log(user);
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  done(null, user);
+});
+
+// http://passportjs.org/
+// Create google project at http://console.developers.google.com and generate credentials for Google+ API
+// Both public and private tokens are stored in ../config/keys.js for dev environment, for prod we use env variables
+passport.use(
+  new OauthStrategy({
+      clientID: keys.googleClientID,
+      clientSecret: keys.googleClientSecret,
+      //callbackURL has to registered in http://console.developers.google.com project to work
+      callbackURL: '/auth/google/redirect'
+    }, (accessToken, refreshToken, profile, done) => {
+      done(null, { id: profile.id, from: profile.name.givenName, message: `New User logged in ${profile.displayName}` });
+    }
+  )
+);
+
+app.get('/auth/google', passport.authenticate('google', {
+    scope: ['profile', 'email']
+  })
+);
+
+app.get(
+  "/auth/google/redirect",
+  passport.authenticate("google", {
+    successRedirect: "/",
+    failureRedirect: "/login"
+  })
+);
 
 server.listen(portForHeroku, () => {
   console.log(`Server started on port ${portForHeroku}`);
