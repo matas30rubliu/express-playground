@@ -62,7 +62,9 @@ passport.use(
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
       //callbackURL has to registered in http://console.developers.google.com project to work
-      callbackURL: '/auth/google/redirect'
+      callbackURL: '/auth/google/redirect',
+      // Trust proxies, so we can use heroku
+      proxy: true
     }, (accessToken, refreshToken, profile, done) => {
       done(null, { id: profile.id, from: profile.name.givenName, message: `New User logged in ${profile.displayName}` });
     }
