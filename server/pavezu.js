@@ -78,10 +78,10 @@ app.get("/api/logout", (req, res) => {
 
 if (process.env.NODE_ENV === 'production') {
     // serve main.js and main.css (from ./client/build/static/... after running npm run build) for prod
-    app.use(express.static('client/build'));
+    const path = require('path');
+    app.use(express.static(path.join(__dirname, 'client/build')));
 
     // serve index.html if route requested is supposed to be handled by react
-    const path = require('path');
     app.get('*', (req, res) => {
       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
