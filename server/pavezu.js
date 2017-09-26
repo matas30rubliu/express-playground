@@ -110,6 +110,17 @@ app.get("/api/logout", (req, res) => {
   res.redirect('/');
 });
 
+if (process.env.NODE_ENV === 'production') {
+    // serve main.js and main.css (from ./client/build/static/... after running npm run build) for prod
+    app.use(express.static('client/build'));
+
+    // serve index.html if route requested is supposed to be handled by react
+    const path = require('path');
+    app.get('*', (req, res) => {
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+    });
+}
+
 server.listen(portForHeroku, () => {
   console.log(`Server started on port ${portForHeroku}`);
 });
