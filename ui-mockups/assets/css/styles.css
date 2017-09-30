@@ -11,8 +11,7 @@
 }
 
 .inputelis{
-    padding-left: 40px;
-    padding-right: 80px;
+    padding-left: 30px;
 }
 .formos-bg {
     border-radius: 5px;
@@ -28,8 +27,24 @@
     margin-bottom: 10px;
 }
 
+.inputs{
+    height: 2rem!important;
+    border-bottom: 2px solid #9e9e9e!important;;
+}
+
+
 body {
     min-height: 200vh;
+}
+
+
+.input-field.suffix i {
+    position: absolute;
+    width: 3rem;
+    font-size: 2rem;
+    transition: color .2s;
+    top: 0px;
+    right: 0px;
 }
 
 .whut {
@@ -118,3 +133,35 @@ body {
 .input-field .prefix.active {
     color: #4527a0;
 
+.input-field.suffix i.active {
+    color: #26a69a;
+}
+
+.input-field.suffix input,
+.input-field.suffix textarea {
+    margin-right: 3rem;
+    width: 92%;
+    width: calc(100% - 3rem);
+}
+
+.input-field.suffix textarea {
+    padding-top: .8rem;
+}
+
+.input-field.suffix label {
+    margin-right: 3rem;
+}
+
+@media only screen and (max-width: 992px) {
+    .input-field.suffix input {
+        width: 86%;
+        width: calc(100% - 3rem);
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .input-field.suffix input {
+        width: 80%;
+        width: calc(100% - 3rem);
+    }
+}
