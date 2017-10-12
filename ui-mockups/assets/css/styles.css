@@ -1,3 +1,15 @@
+.page-footer {
+    background-color: #4527a0;
+    margin-top:-35px;
+}
+#card-placement{
+    margin-top:-20px;
+}
+
+.body {
+    background-color: #f1eeff;
+}
+
 .forma {
     border-radius: 5px;
     border-style: solid;
@@ -34,7 +46,7 @@
 
 
 body {
-    min-height: 200vh;
+    background-color: #f1eeff;
 }
 
 
