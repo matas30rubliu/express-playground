@@ -49,6 +49,19 @@ body {
     background-color: #f1eeff;
 }
 
+.promo i {
+    color: black;
+    margin: 40px;
+    font-size: 7rem;
+    display: block;
+}
+
+.material-icons {
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
+
+}
 
 .input-field.suffix i {
     position: absolute;
@@ -61,6 +74,11 @@ body {
 
 .whut {
     height: 40px;
+}
+
+.bgimg {
+    background-image: url(https://d1ovtcjitiy70m.cloudfront.net/vi-1/images/homepage/2016/homeblock_driver_desktop_en_GB_v01.jpg);
+    height: 300px;
 }
 
 .headeris-centras {
