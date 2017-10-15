@@ -6,10 +6,11 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
+import { Parallax } from 'react-materialize'
 import Header from './Header';
+import PassengerLookup from './PassengerLookup';
 
 // 'fake'components to show how routes work
-const Start = () => <h2>Dashboard</h2>;
 const Home = () => <h2>User home page</h2>;
 const PublicHome = () => <h2>Welcome to the page</h2>;
 
@@ -28,15 +29,38 @@ class App extends Component {
 
   render() {
     return (
-      <div className="container">
-        <BrowserRouter>
-          <div>
-            <Header />
-            <Route exact path="/" component={Start} />
-            <Route path="/userHome" component={Home} />
-            <Route path="/public" component={PublicHome} />
+      <div>
+        <div className="parallax-container">
+
+          <BrowserRouter>
+            <div>
+              <Header />
+              <Route exact path="/" component={PassengerLookup} />
+              <Route path="/userHome" component={Home} />
+              <Route path="/public" component={PublicHome} />
+            </div>
+          </BrowserRouter>
+
+          <div className="parallax">
+              <Parallax className="carImg" imageSrc="http://cdn.wallpapersafari.com/36/88/PMW375.jpg"/>
           </div>
-        </BrowserRouter>
+        </div>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
+        <p>Parallax test</p>
       </div>
     );
   }

@@ -11,7 +11,7 @@ class Header extends Component {
       // can be tested using browser throtlling
         return;
       case false:
-        return <li><a href="/auth/google">Google Login</a></li>;
+        return <li><a href="/auth/google" className='btn waves-effect waves-light pink'>Google Login</a></li>;
       default:
         return (
           <div>
@@ -24,9 +24,9 @@ class Header extends Component {
 
   render() {
     return (
-      <nav>
-        <div className="nav-wrapper">
-          <Link to={this.props.auth ? '/userHome' : '/public'} className="brand-logo">Home</Link>
+      <nav className="permatoma">
+        <div>
+          <Link to={this.props.auth ? '/userHome' : '/public'} className="brand-logo black-text hide-on-med-and-down">paVezu.lt</Link>
           <ul className="right hide-on-med-and-down">
             {this.renderGoogleAuthInfo()}
           </ul>
