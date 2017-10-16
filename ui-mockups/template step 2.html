@@ -51,8 +51,9 @@
             <div class="row formu-forma">
                     <div class="col l7 m6 s12 formos-bg">
                         <form class="col s12 card-panel hoverable">
-                            <h4 class="header2">Kelionės kaina</h4>
+                            <h4 class="header2">Kelionės informacija</h4>
                             <div class="row inputelis">
+                                <h6>Kaina</h6>
                                 <div class="input-field suffix col l8 s8">
                                     <input type="range" id="test5" min="0" max="100"/>
                                 </div>
@@ -62,18 +63,20 @@
                                 </div>
                             </div>
                             <div class="row inputelis">
-                                <div class="input-field suffix col l8 s12">
-                                    <input placeholder="Klaipėda" id="icon_prefix" type="text" class="validate">
-                                    <label for="icon_prefix">Vykstu į</label>
-                                    <i class="material-icons">account_circle</i>
+                                <h6>Vietų skaičius</h6>
+                                <div class="col l8 s12">
+                                    <ul class="pagination">
+                                        <li class="waves-effect"><a href="#!">1</a></li>
+                                        <li class="waves-effect"><a href="#!">2</a></li>
+                                        <li class="waves-effect active"><a href="#!">3</a></li>
+                                        <li class="waves-effect"><a href="#!">4</a></li>
+                                    </ul>
                                 </div>
                             </div>
-                            <h4 class="header2">Tarpiniai sustojimai</h4>
                             <div class="row inputelis">
+                                <h6>Vietų skaičius</h6>
                                 <div class="input-field suffix col l8 s12">
-                                    <input placeholder="Raseiniai" id="icon_prefix" type="text" class="validate">
-                                    <label for="icon_prefix">Galiu sustoti</label>
-                                    <i class="material-icons pulse">add</i>
+                                    <div class="chips chips-initial" data-index="0" data-initialized="true"><div class="chip">Apple<i class="material-icons close">close</i></div><div class="chip">Microsoft<i class="material-icons close">close</i></div><div class="chip">Google<i class="material-icons close">close</i></div><input id="6c3dcf95-ad9c-99f2-78dc-c9e37b5b2871" class="input" placeholder=""></div>
                                 </div>
                             </div>
                         </form>
@@ -90,17 +93,12 @@
                     </div>
                 <div class="col s12 formos-bg">
                     <form class="col s12 card-panel hoverable">
-                        <h4 class="header2">Išvykimo data ir laikas</h4>
+                        <h4 class="header2">Papildoma informacija</h4>
                         <div class="row inputelis">
-                            <div class="input-field suffix col l4 s12">
-                                <input placeholder="John Doe" id="icon_prefix" type="text" class="validate">
-                                <label for="icon_prefix">First Name</label>
-                                <i class="material-icons">account_circle</i>
-                            </div>
-                            <div class="input-field suffix col l4 s12">
-                                <input placeholder="John Doe" id="icon_prefix" type="text" class="validate">
-                                <label for="icon_prefix">First Name</label>
-                                <i class="material-icons">account_circle</i>
+                            <div class="input-field suffix col l8 s12">
+                                <i class="material-icons prefix">mode_edit</i>
+                                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
+                                <label for="icon_prefix2">Teksto vieta</label>
                             </div>
                             <div class="input-field col l4 s12">
                                     <button class="btn waves-effect waves-light pink" type="submit" name="action">Toliau
@@ -112,10 +110,9 @@
                 </div>
             </div>
     </div>
+    
 
-
-
-<!-- Compiled and minified JavaScript -->
+    <!-- Compiled and minified JavaScript -->
 <script
         language="JavaScript"
         src="http://code.jquery.com/jquery-2.2.4.js"
