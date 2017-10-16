@@ -3,6 +3,8 @@ import { BrowserRouter, Route } from 'react-router-dom';
 // BrowserRouter figures out which components should be displayed at specific route
 // Route is used to setup rules between router and components
 
+import carBackground from './carBackground.jpg';
+
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
@@ -42,7 +44,7 @@ class App extends Component {
           </BrowserRouter>
 
           <div className="parallax">
-              <Parallax className="carImg" imageSrc="http://cdn.wallpapersafari.com/36/88/PMW375.jpg"/>
+              <Parallax className="carImg" imageSrc={carBackground}/>
           </div>
         </div>
         <p>Parallax test</p>
