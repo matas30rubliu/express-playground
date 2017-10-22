@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const OauthStrategy = require('passport-google-oauth20').Strategy;
@@ -8,6 +9,12 @@ const utils = require('./utils.js');
 
 const portForHeroku = process.env.PORT || 5000;
 const moment = require('moment');
+
+// Execute 'users' collection creation in User.js
+require('./models/User.js');
+const User = mongoose.model('users');
+// Create MongoDB at mlab.com
+mongoose.connect(keys.mongoDB);
 
 // API reference for HTTP server: https://expressjs.com/
 const app = express();
@@ -39,6 +46,7 @@ passport.deserializeUser((user, done) => {
 // http://passportjs.org/
 // Create google project at http://console.developers.google.com and generate credentials for Google+ API
 // Both public and private tokens are stored in ../config/keys.js for dev environment, for prod we use env variables
+const DATE_FORMAT = 'MMMM Do YYYY, h:mm:ss a';
 passport.use(
   new OauthStrategy({
       clientID: keys.googleClientID,
@@ -48,7 +56,16 @@ passport.use(
       // Trust proxies, so we can use heroku
       proxy: true
     }, (accessToken, refreshToken, profile, done) => {
-      done(null, { id: profile.id, from: profile.name.givenName, message: `${profile.displayName} logged in at ${moment().format('MMMM Do YYYY, h:mm:ss a')}` });
+      User.findOneAndUpdate(
+        { googleProfileID: profile.id },
+        { lastSeen: moment().toDate() },
+        { upsert: true },
+        (err, res) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+      done(null, { id: profile.id, from: profile.name.givenName, message: `${profile.displayName} logged in at ${moment().format(DATE_FORMAT)}` });
     }
   )
 );
