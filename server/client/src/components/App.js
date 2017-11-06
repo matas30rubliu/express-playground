@@ -11,7 +11,6 @@ import * as actions from '../actions';
 import { Parallax } from 'react-materialize'
 import Header from './Header';
 import PassengerLookup from './PassengerLookup';
-import RoutesTable from './RoutesTable';
 
 // 'fake'components to show how routes work
 const Home = () => <h2>User home page</h2>;
