@@ -11,12 +11,12 @@ class Header extends Component {
       // can be tested using browser throtlling
         return;
       case false:
-        return <li><a href="/auth/google" className='btn waves-effect waves-light pink'>Google Login</a></li>;
+        return <li><a href="/auth/google" className='btn waves-effect waves-light pink'>Prisijungti su Google</a></li>;
       default:
         return (
           <div>
-            <li><a>{this.props.auth.message}</a></li>
-            <li><a href="/api/logout">Logout</a></li>
+            <li><a className='black-text'>{this.props.auth.message}</a></li>
+            <li><a href="/api/logout" className='btn waves-effect waves-light pink'>Atsijungti</a></li>
           </div>
         );
     }

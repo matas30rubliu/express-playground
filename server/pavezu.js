@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
 const OauthStrategy = require('passport-google-oauth20').Strategy;
+const bodyParser = require('body-parser');
 
 const keys = require('../config/keys.js');
 const utils = require('./utils.js');
@@ -10,14 +11,16 @@ const utils = require('./utils.js');
 const portForHeroku = process.env.PORT || 5000;
 const moment = require('moment');
 
+require('./models/Route.js');
 // Execute 'users' collection creation in User.js
 require('./models/User.js');
-const User = mongoose.model('users');
 // Create MongoDB at mlab.com
 mongoose.connect(keys.mongoDB);
 
 // API reference for HTTP server: https://expressjs.com/
 const app = express();
+
+app.use(bodyParser.json());
 
 // passport can keep track of auth flow in many ways. E.g. by cookies.
 // By default exress does not know about cookies, init that:
@@ -43,10 +46,10 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+const User = mongoose.model('users');
 // http://passportjs.org/
 // Create google project at http://console.developers.google.com and generate credentials for Google+ API
 // Both public and private tokens are stored in ../config/keys.js for dev environment, for prod we use env variables
-const DATE_FORMAT = 'MMMM Do YYYY, h:mm:ss a';
 passport.use(
   new OauthStrategy({
       clientID: keys.googleClientID,
@@ -55,28 +58,26 @@ passport.use(
       callbackURL: '/auth/google/redirect',
       // Trust proxies, so we can use heroku
       proxy: true
-    }, (accessToken, refreshToken, profile, done) => {
-      User.findOneAndUpdate(
+    }, async (accessToken, refreshToken, profile, done) => {
+      const persistedUser = await User.findOneAndUpdate(
         { googleProfileID: profile.id },
         { lastSeen: moment().toDate() },
-        { upsert: true },
-        (err, res) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-      done(null, { id: profile.id, from: profile.name.givenName, message: `${profile.displayName} logged in at ${moment().format(DATE_FORMAT)}` });
+        { upsert: true, new: true });
+        console.log(persistedUser);
+      done(null, { id: persistedUser.id, from: profile.name.givenName, message: `${profile.displayName} logged in at ${moment().format('MMMM Do YYYY, h:mm:ss a')}` });
     }
   )
 );
 
+// Express routes (application end points - URIs).
+// TODO: Refactor to different file
 app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email']
   })
 );
 
 app.get(
-  "/auth/google/redirect",
+  '/auth/google/redirect',
   passport.authenticate("google", {
     successRedirect: "/",
     failureRedirect: "/auth/google"
@@ -84,13 +85,30 @@ app.get(
 );
 
 // this call returns current user. req.user is set by deserializeUser
-app.get("/api/current_user", (req, res) => {
+app.get('/api/current_user', (req, res) => {
   res.send(req.user);
 });
 
-app.get("/api/logout", (req, res) => {
+app.get('/api/logout', (req, res) => {
   req.logout();
   res.redirect('/');
+});
+
+const Route = mongoose.model('routes');
+app.post('/api/addRoute', (req, res) => {
+  // save route added by user to MongoDB models/Route collection
+  const {from, to} = req.body;
+  const newRoute = new Route({
+    userID: req.user.id,
+    from,
+    to,
+  });
+  try {
+    newRoute.save();
+  } catch (err) {
+    res.status(422).send(err);
+  }
+  res.send(req.user);
 });
 
 if (process.env.NODE_ENV === 'production') {
