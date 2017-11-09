@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import { FETCH_USER, FETCH_ROUTES } from './types';
 
 // Action creaters initiate change for redux (change state of redux store which in turn updates react components)
 export const fetchUser = () => {
@@ -17,6 +17,13 @@ export const fetchUser = () => {
 export const submitRoute = values => {
   return async function(dispatch) {
     const persistedRoute = await axios.post('/api/addRoute', values);
-    dispatch({ type: FETCH_USER, payload: persistedRoute.data });
+    dispatch({ type: FETCH_ROUTES, payload: persistedRoute.data });
+  }
+}
+
+export const fetchRoutes = () => {
+  return async function(dispatch) {
+    const top10NewestRoutes = await axios.get('/api/getRoutes');
+    dispatch({ type: FETCH_ROUTES, payload: top10NewestRoutes.data });
   }
 }

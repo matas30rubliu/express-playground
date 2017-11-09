@@ -95,7 +95,7 @@ app.get('/api/logout', (req, res) => {
 });
 
 const Route = mongoose.model('routes');
-app.post('/api/addRoute', (req, res) => {
+app.post('/api/addRoute', async (req, res) => {
   // save route added by user to MongoDB models/Route collection
   const {from, to} = req.body;
   const newRoute = new Route({
@@ -104,11 +104,20 @@ app.post('/api/addRoute', (req, res) => {
     to,
   });
   try {
-    newRoute.save();
+    const savedRoute = await newRoute.save();
+    res.send(savedRoute);
   } catch (err) {
     res.status(422).send(err);
   }
-  res.send(req.user);
+});
+
+app.get('/api/getRoutes', async (req, res) => {
+  const routes = await Route.find({}, (err, res) => {
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.send(routes);
 });
 
 if (process.env.NODE_ENV === 'production') {
