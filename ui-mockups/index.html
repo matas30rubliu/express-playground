@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -66,15 +66,15 @@
                             <div class="row">
                                 <div class="input-field col s12 whut">
                                     <i class="material-icons prefix">add_location</i>
-                                    <input id="last_name" type="text" class="validate">
-                                    <label for="last_name">Važiuosiu iš miesto</label>
+                                    <input class="autocomplete" id="ac1" placeholder="Važiuosiu iš"
+                                           onFocus="geolocate()" type="text"></input>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 whut">
                                     <i class="material-icons prefix">flag</i>
-                                    <input id="last_name" type="text" class="validate">
-                                    <label for="last_name">Važiuosiu į miestą</label>
+                                    <input class="autocomplete" id="ac2" placeholder="Važiuosiu iš"
+                                            onFocus="geolocate()" type="text"></input>
                                 </div>
                             </div>
                             <div class="row">
@@ -136,7 +136,10 @@
                         <div class="col l4">
                             <div class="row"><h4>Lorem ipsum?</h4></div>
                             <div class="row">Sit dolor amet with PaVezu.lt</div>
-                            <div class="row"></div>
+                            <div class="row">
+                                <input class="autocomplete" id="ac3" placeholder="Enter your address" type="text"></input>
+  				            </div>
+			        </div>
                             <div class="row">
                                 <input type="submit" class="btn waves-effect waves-light deep-purple darken-3" value="Pasiūlyti kelionę">
                             </div>
@@ -146,6 +149,11 @@
             </div>
         </div>
     </div>
+    <!-- Google Maps predictive typing -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMSdOwsIcIqLHtLutiTKXIgxEa8dfDhzk&libraries=places&callback=initAutocomplete" async defer></script>
+    <script language="JavaScript" type="text/javascript" src="assets/js/gmaps.js"></script>
+    <!-- xxx -->
+
 </content>
 
 <footer class="page-footer">
@@ -183,6 +191,7 @@
         crossorigin="anonymous"></script>
 <script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="assets/js/scripts.js"></script>
+
 
 
 </body>
