@@ -53,13 +53,16 @@
                         <form class="col s12 card-panel hoverable">
                             <h4 class="header2">Kelionės informacija</h4>
                             <div class="row inputelis">
-                                <h6>Kaina</h6>
-                                <div class="input-field suffix col l8 s8">
-                                    <input type="range" id="test5" min="0" max="100"/>
+                                <div class="col l9 s12">
+                                    <h6>Vilnius - Raseiniai</h6>
                                 </div>
-                                <div class="input-field suffix col l2 offset-l1 s2 offset-s1">
-                                    <input id="input_text" type="text" data-length="10">
-                                    <label for="input_text">5 $</label>
+                                <div class="col l3 s12">
+                                <h6>Kaina</h6>
+                                    <formz id='myform' method='POST' action='#'>
+                                        <input type='button' value='-' class='btn qtyminus' field='quantity' />
+                                        <input type='text' name='quantity' value='0' class='qty' />
+                                        <input type='button' value='+' class='btn qtyplus' field='quantity' />
+                                    </formz>
                                 </div>
                             </div>
                             <div class="row inputelis">
@@ -72,11 +75,18 @@
                                         <li class="waves-effect"><a href="#!">4</a></li>
                                     </ul>
                                 </div>
+                                <label>Materialize Multiple Select</label>
                             </div>
                             <div class="row inputelis">
-                                <h6>Vietų skaičius</h6>
-                                <div class="input-field suffix col l8 s12">
-                                    <div class="chips chips-initial" data-index="0" data-initialized="true"><div class="chip">Apple<i class="material-icons close">close</i></div><div class="chip">Microsoft<i class="material-icons close">close</i></div><div class="chip">Google<i class="material-icons close">close</i></div><input id="6c3dcf95-ad9c-99f2-78dc-c9e37b5b2871" class="input" placeholder=""></div>
+                                <div class="input-field col s12 m6">
+                                    <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-d034f1b1-cb0c-288c-fb1e-1abb8d98d940" value="Choose your option" tabindex="16"><ul id="select-options-d034f1b1-cb0c-288c-fb1e-1abb8d98d940" class="dropdown-content select-dropdown multiple-select-dropdown" style="width: 328.641px; position: absolute; top: 0px; left: 0px; display: none; opacity: 1;"><li class="disabled"><span><input type="checkbox" disabled="" tabindex="17"><label></label>Choose your option</span></li><li class="active"><span><input type="checkbox" tabindex="18"><label></label>Option 1</span></li><li class=""><span><input type="checkbox" tabindex="19"><label></label>Option 2</span></li><li class="active"><span><input type="checkbox" tabindex="20"><label></label>Option 3</span></li></ul><select multiple="" data-select-id="d034f1b1-cb0c-288c-fb1e-1abb8d98d940" class="initialized" tabindex="21">
+                                        <option value="" disabled="" selected="">Choose your option</option>
+                                        <option value="1">Option 1</option>
+                                        <option value="2">Option 2</option>
+                                        <option value="3">Option 3</option>
+                                    </select>
+                                        <label>Materialize Multiple Select</label>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -96,9 +106,10 @@
                         <h4 class="header2">Papildoma informacija</h4>
                         <div class="row inputelis">
                             <div class="input-field suffix col l8 s12">
-                                <i class="material-icons prefix">mode_edit</i>
-                                <textarea id="icon_prefix2" class="materialize-textarea"></textarea>
-                                <label for="icon_prefix2">Teksto vieta</label>
+                                    <div class="input-field col s12">
+                                        <textarea id="textarea1" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Textarea</label>
+                                    </div>
                             </div>
                             <div class="input-field col l4 s12">
                                     <button class="btn waves-effect waves-light pink" type="submit" name="action">Toliau
@@ -110,7 +121,7 @@
                 </div>
             </div>
     </div>
-    
+
 
     <!-- Compiled and minified JavaScript -->
 <script
@@ -120,6 +131,18 @@
         crossorigin="anonymous"></script>
 <script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="assets/js/scripts.js"></script>
+
+<script
+        $('#textarea1').val('New Text');
+        $('#textarea1').trigger('autoresize');></script>
+
+    <script
+        $(document).ready(function() {
+        $('select').material_select();
+        });></script>
+
+<script
+        $('select').material_select('destroy');></script>
 
 
 </body>
