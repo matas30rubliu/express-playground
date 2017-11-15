@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import { Row, Col, Card, Input, Icon, Button } from 'react-materialize';
 
 class PassengerLookup extends React.Component {
+
   constructor(props) {
       super(props);
       this.updateFrom = this.updateFrom.bind(this);
@@ -30,6 +31,7 @@ class PassengerLookup extends React.Component {
 
   submitRoute() {
     this.props.submitRoute(this.state);
+    this.props.socket.emit('newRoute', {...this.state, userID: this.props.auth.id} );
   }
 
   render() {
@@ -54,4 +56,8 @@ class PassengerLookup extends React.Component {
   }
 }
 
-export default connect(null, actions)(PassengerLookup);
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+
+export default connect(mapStateToProps, actions)(PassengerLookup);

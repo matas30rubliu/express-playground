@@ -12,10 +12,18 @@ import { Parallax } from 'react-materialize'
 import Header from './Header';
 import PassengerLookup from './PassengerLookup';
 import RoutesTable from './RoutesTable';
+import io from 'socket.io-client';
+const socket = io();
 
 // 'fake'components to show how routes work
 const Home = () => <h2>User home page</h2>;
 const PublicHome = () => <h2>Welcome to the page</h2>;
+
+const PassengerLookupWithSocket = () => {
+  return (
+    <PassengerLookup socket={socket} />
+  );
+}
 
 class App extends Component {
   // react components lifecycle methods: componentWillMount, componentWillUpdate, componentWillUnmount....
@@ -38,7 +46,7 @@ class App extends Component {
           <BrowserRouter>
             <div>
               <Header />
-              <Route exact path="/" component={PassengerLookup} />
+              <Route exact path="/" component={PassengerLookupWithSocket} />
               <Route path="/userHome" component={Home} />
               <Route path="/public" component={PublicHome} />
             </div>
@@ -48,7 +56,7 @@ class App extends Component {
               <Parallax className="carImg" imageSrc={carBackground}/>
           </div>
         </div>
-        <RoutesTable />
+        <RoutesTable socket={socket} />
       </div>
     );
   }

@@ -16,14 +16,14 @@ export const fetchUser = () => {
 
 export const submitRoute = values => {
   return async function(dispatch) {
-    const persistedRoute = await axios.post('/api/addRoute', values);
-    dispatch({ type: FETCH_ROUTES, payload: persistedRoute.data });
+    const newestRoutes = await axios.post('/api/addRoute', values);
+    dispatch({ type: FETCH_ROUTES, payload: newestRoutes.data });
   }
 }
 
 export const fetchRoutes = () => {
   return async function(dispatch) {
-    const top10NewestRoutes = await axios.get('/api/getRoutes');
-    dispatch({ type: FETCH_ROUTES, payload: top10NewestRoutes.data });
+    const newestRoutes = await axios.get('/api/getRoutes');
+    dispatch({ type: FETCH_ROUTES, payload: newestRoutes.data });
   }
 }

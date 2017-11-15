@@ -6,10 +6,14 @@ import * as actions from '../actions';
 class RoutesTable extends React.Component {
   componentDidMount() {
     this.props.fetchRoutes();
+    this.props.socket.on('newRoute', newRoute => {
+      this.props.routes.unshift(newRoute);
+      this.setState(this.state);
+    });
   }
 
   generateRows() {
-    return this.props.routes.reverse().map(r => {
+    return this.props.routes.map(r => {
       return(
         <tr>
           <td>{r.userID}</td>
@@ -18,7 +22,6 @@ class RoutesTable extends React.Component {
         </tr>
       );
     });
-    return '';
   }
 
   render() {

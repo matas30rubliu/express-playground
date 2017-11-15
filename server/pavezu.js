@@ -34,6 +34,18 @@ app.use(cookieSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
+const http = require('http');
+const socketIO = require('socket.io');
+var server = http.createServer(app);
+var io = socketIO(server);
+// const io = require('socket.io')();
+
+io.on('connection', socket => {
+  socket.on('newRoute', newRoute => {
+    socket.broadcast.emit('newRoute', newRoute);
+  });
+});
+
 passport.serializeUser((user, done) => {
   // first param is error object (null because we expect no errors)
   // This creates cookie, which is used by our app
@@ -102,21 +114,35 @@ app.post('/api/addRoute', async (req, res) => {
     userID: req.user.id,
     from,
     to,
+    firstRegistered: moment().toDate()
   });
   try {
-    const savedRoute = await newRoute.save();
-    res.send(savedRoute);
+    await newRoute.save();
+    const routes = await Route
+      .find({})
+      .sort({'firstRegistered': -1})
+      .limit(15)
+      .exec((err, res) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    res.send(routes);
   } catch (err) {
     res.status(422).send(err);
   }
 });
 
 app.get('/api/getRoutes', async (req, res) => {
-  const routes = await Route.find({}, (err, res) => {
-    if (err) {
-      console.log(err);
-    }
-  });
+  const routes = await Route
+    .find({})
+    .sort({'firstRegistered': -1})
+    .limit(15)
+    .exec((err, res) => {
+      if (err) {
+        console.log(err);
+      }
+    });
   res.send(routes);
 });
 
@@ -131,6 +157,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(portForHeroku, () => {
+server.listen(portForHeroku, () => {
   console.log(`Server started on port ${portForHeroku}`);
 });
