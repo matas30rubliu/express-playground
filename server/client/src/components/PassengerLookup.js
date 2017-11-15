@@ -40,8 +40,8 @@ class PassengerLookup extends React.Component {
           <Row>
             <Col m={4} className='right' >
               <Card className='card medium foniukas' title='Rask pakeleivį' >
-                <Row className='autocomplete'>
-                  <Input m={12} id="ac1" label="Važiuosiu iš miesto" onChange={this.updateFrom}><Icon>add_location</Icon></Input>
+                <Row>
+                  <Input m={12} label="Važiuosiu iš miesto" onChange={this.updateFrom}><Icon>add_location</Icon></Input>
                   <Input m={12} label="Važiuosiu į miestą" onChange={this.updateTo}><Icon>flag</Icon></Input>
                   <Input m={12} name='on' type='date' onChange={function(e, value) {}}><Icon>date_range</Icon></Input>
                 </Row>

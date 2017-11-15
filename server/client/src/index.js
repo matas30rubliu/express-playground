@@ -1,7 +1,6 @@
 // import 'materialize-css/dist/css/materialize.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import gmaps from './public/gmaps.js';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
