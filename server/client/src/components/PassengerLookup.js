@@ -1,18 +1,26 @@
 ﻿import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
-import { Row, Col, Card, Input, Icon, Button } from 'react-materialize';
+import { Row, Col, Card, Input, Icon, Button, Modal } from 'react-materialize';
+import $ from "jquery";
 
 class PassengerLookup extends React.Component {
 
+  componentDidMount = () => {
+    $('#hack').on('click', function() {
+      $('#testBtn').click();
+    })
+  }
+
   constructor(props) {
       super(props);
-      this.updateFrom = this.updateFrom.bind(this);
-      this.updateTo = this.updateTo.bind(this);
-      this.submitRoute = this.submitRoute.bind(this);
       this.state = {
           from: ''
       };
+      this.updateFrom = this.updateFrom.bind(this);
+      this.updateTo = this.updateTo.bind(this);
+      this.submitRoute = this.submitRoute.bind(this);
   }
 
   updateFrom(e) {
@@ -30,6 +38,10 @@ class PassengerLookup extends React.Component {
   }
 
   submitRoute() {
+    if (!this.props.auth) {
+      ReactDOM.findDOMNode(this.triggerBtn).click();
+      return;
+    }
     this.props.submitRoute(this.state);
     this.props.socket.emit('newRoute', {...this.state, userID: this.props.auth.id} );
   }
@@ -51,6 +63,11 @@ class PassengerLookup extends React.Component {
               </Card>
             </Col>
           </Row>
+          <Modal
+            header='Prisijunkite'
+            trigger={<Button ref={input => this.triggerBtn = input} className='hide'/>}>
+            Norėdami įvesti naują maršrutą turite prisijungti!
+          </Modal>
       </div>
     );
   }
