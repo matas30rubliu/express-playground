@@ -3,38 +3,17 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import { Row, Col, Card, Input, Icon, Button, Modal } from 'react-materialize';
-import $ from "jquery";
+import GeosuggestInput from './GeosuggestInput';
 
 class PassengerLookup extends React.Component {
-
-  componentDidMount = () => {
-    $('#hack').on('click', function() {
-      $('#testBtn').click();
-    })
-  }
 
   constructor(props) {
       super(props);
       this.state = {
-          from: ''
+          from: '',
+          to: ''
       };
-      this.updateFrom = this.updateFrom.bind(this);
-      this.updateTo = this.updateTo.bind(this);
       this.submitRoute = this.submitRoute.bind(this);
-  }
-
-  updateFrom(e) {
-    const fromVal = e.target.value;
-    this.setState(() => {
-      return { from: fromVal };
-    });
-  }
-
-  updateTo(e) {
-    const toVal = e.target.value;
-    this.setState(() => {
-      return { to: toVal };
-    });
   }
 
   submitRoute() {
@@ -53,8 +32,8 @@ class PassengerLookup extends React.Component {
             <Col m={4} className='right' >
               <Card className='card medium foniukas' title='Rask pakeleivį' >
                 <Row>
-                  <Input m={12} label="Važiuosiu iš miesto" onChange={this.updateFrom}><Icon>add_location</Icon></Input>
-                  <Input m={12} label="Važiuosiu į miestą" onChange={this.updateTo}><Icon>flag</Icon></Input>
+                  <GeosuggestInput title="Važiuosiu iš miesto" icon="add_location" onChange={(from) => this.setState(() => ({ from }))} />
+                  <GeosuggestInput title="Važiuosiu į miestą" icon="flag" onChange={(to) => this.setState(() => ({ to }))} />
                   <Input m={12} name='on' type='date' onChange={function(e, value) {}}><Icon>date_range</Icon></Input>
                 </Row>
                 <div className="card-action right-align">

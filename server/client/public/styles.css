@@ -104,6 +104,10 @@ body {
     padding-top: 10px;
 }
 
+.dropdown-content li>a, .dropdown-content li>span {
+  color: #C8C8C8;
+}
+
 .rokas {
     background: rgba(96, 125, 139, .5);
     padding: 40px;
